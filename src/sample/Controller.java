@@ -24,8 +24,10 @@ public class Controller {
     }
 
     public void updateList(){
+        //copy heap's contents into an array, then sort the array
         Stream<News> Newsarr = Arrays.stream(News.News.toArray(new News[0])).sorted();
 
+        //clear list, then add items
         newsList.getItems().clear();
         Newsarr.forEach(n->newsList.getItems().add(n.content));
 
@@ -37,7 +39,7 @@ public class Controller {
     }
 
     public void Publish(){
-        Date d = new Date(); //Date initialises to now.
+        Date d = new Date(); //Date initialises to now
         if(newsInput.getText().isBlank()){
             addNewsErrorText.setText("Please add content to your news");
             return;

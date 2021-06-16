@@ -7,13 +7,17 @@ import java.util.PriorityQueue;
 
 public class News implements Serializable, Comparable<News> {
     static PriorityQueue<News> News = new PriorityQueue<News>(){};
-    static private final File file = new File("News.ser");
+
     public Date publishDate;
     public String content;
 
+    //define file news is saved to
+    static private final File file = new File("News.ser");
+
     public static void loadNews(){
-        //check news file exists; if not, initialise it.
+        //check news file exists; if not, create it.
         if(file.exists()){
+            //boilerplate stream read
             try {
                 FileInputStream finstr = new FileInputStream(file);
                 ObjectInputStream in = new ObjectInputStream(finstr);
@@ -30,6 +34,7 @@ public class News implements Serializable, Comparable<News> {
     }
 
     public static void saveNews(){
+        //boilerplate stream write
         try{
             FileOutputStream foutstr = new FileOutputStream(file);
             ObjectOutputStream out = new ObjectOutputStream(foutstr);
@@ -51,6 +56,7 @@ public class News implements Serializable, Comparable<News> {
         this.content = content;
     }
 
+    //comparator wrapping inverted date comparator; java heaps are minheaps, maxheap is desired.
     @Override
     public int compareTo(sample.News o) {
         return -publishDate.compareTo(o.publishDate);
